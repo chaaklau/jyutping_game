@@ -1,0 +1,82 @@
+[
+  {
+  "meta": {
+    "number":0,
+    "title": "（一）音節結構 b / s / aa / 1 / 2",
+    "components": ["b","s","aa","1","2"]
+  },
+  "intro": "粵拼方案 總共有 19個聲母，60個韻母，6個聲調。每隻漢字嘅讀音，就係呢三樣嘢嘅結合。好似「巴」嘅拼法係 baa1。b 係聲母， aa 係韻母，1係聲調。如果兩個字韻母一樣，讀起上嚟應該係押韻嘅。好似 巴、沙、耍、假、渣、茶、話，上面嘅字韻母都係 aa。",
+  "questions": [
+    {
+      "character":"巴",
+      "instruction":"考下你記性，呢個字點拼？",
+      "answer":"baa1"
+    },
+    {
+      "character":"沙",
+      "instruction":"好，如果我話你知「沙」嘅聲母係 s。噉呢個字應該點拼？",
+      "answer":"saa1"
+    },
+    {
+      "character":"沙巴",
+      "instruction":"之前介紹嘅字都係第1聲，最尾係數字 1。第1聲係最高音嘅聲調。低音咗，高低音唔同咗，連意思都會變埋嘅。呢個地方名又點拼呢？",
+      "answer":"saa1baa1"
+    },
+    {
+      "character":"灑",
+      "instruction":"再介紹多一個聲調，第2聲。呢個聲調係由低至高嘅。好似「好」字噉，一開始好低音，跟住上升到最高音。噉你又估下，呢個字嘅粵拼係乜？",
+      "answer":"saa2"
+    },
+    {
+      "character":"把",
+      "instruction":"",
+      "answer":"baa2"
+    },
+    {
+      "character":"耍",
+      "instruction":"",
+      "answer":"saa2"
+    },
+    {
+      "character":"丫",
+      "instruction":"介紹返，大家已經學咗 b 同 s 兩個聲母。其實有啲音節，係冇任何聲母喺度嘅。冇聲母的話，就噉寫個韻母出嚟就得。好似呢個字，你覺得佢嘅粵拼係乜？",
+      "answer":"aa1"
+    },
+    {
+      "character":"啞",
+      "instruction":"今次聲調唔同咗喇。",
+      "answer":"aa2"
+    },
+    {
+      "character":"沙啞",
+      "instruction":"",
+      "answer":"saa1aa2"
+    },
+    {
+      "character":"啞巴",
+      "instruction":"",
+      "answer":"aa2baa1"
+    }
+    ]
+  },
+  {
+  "meta": {
+    "number":1,
+    "title": "（二）p / aau / aan /  ",
+    "components": ["p","aau","aan"]
+  },
+  "intro": "今次介紹多一個聲母，p。佢係「趴」字嘅聲母",
+  "questions": [
+    {
+      "character":"趴",
+      "instruction":"考下你記性，呢個字點拼？",
+      "answer":"paa1"
+    },
+    {
+      "character":"扒",
+      "instruction":"聲調唔啱噃，噉呢個字應該點拼？",
+      "answer":"paa2"
+    }
+    ]
+  }
+]

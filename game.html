@@ -1,0 +1,155 @@
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
+  <head>
+    <title>香港人學粵拼</title>
+    <meta content charset="utf-8">
+    <!--jQuery local-->
+    <script src="./jquery/jquery-1.11.2.min.js"></script>
+    <!--bootstrap local-->
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      @media (min-width: 651px) {
+        .lead { font-size: 20px !important; }
+        .character-xl { font-size: 200px; font-weight: 900; }
+        .form-control-xl { font-size: 2.5em; height: 1.5em;}
+      }
+
+      @media (max-width: 650px) {
+        .lead { font-size: 25px !important; color:green;}
+        .character-xl { font-size: 150px; font-weight: 700; }
+        .form-control-xl { font-size: 35px; height: 50px;}
+      }
+    </style>
+
+    <script>
+      var game_status={
+        "module_number": -1,
+        "question_number": -1,
+        };
+    </script>
+    <!-- Lesson Data -->
+    <script>
+      var data;
+      $.getJSON("modules.json", function(json) {
+        data = json;
+        check();
+      });
+    </script>
+    <!-- Game logic -->
+    <script>
+      function check(){
+        //Init
+        if (game_status.module_number < 0 && game_status.module_number + 1 < data.length){
+            game_status.module_number = 0;
+            game_status.question_number = 0;
+            var module = data[game_status.module_number];
+            var question = module.questions[game_status.question_number];
+            refresh_display(module, question);
+        }
+        //Mid-game
+        else {
+          var module = data[game_status.module_number];
+          var question = module.questions[game_status.question_number];
+          if ($("#answer").val() == question.answer) {
+            $("#incorrect_answer").text("");
+            // pop-up something
+            game_status.question_number++;
+          }
+          else {
+            // say it's wrong
+            $("#incorrect_answer").text("唔好意思，再試多次吖！");
+          }
+
+          // Check end of module
+          if (game_status.question_number >= module.questions.length){
+            game_status.module_number++;
+            game_status.question_number = 0;
+
+            if (game_status.module_number < data.length){
+              module = data[game_status.module_number];
+              question = module.questions[game_status.question_number];
+              refresh_display(module, question);
+            }
+            else {
+              //end game//
+              $("#question_character").text("搞掂！！！！！");
+            }
+          }
+          else {
+              question = module.questions[game_status.question_number];
+              refresh_display(module, question);
+          }
+        }
+      }
+      function refresh_display(){
+        //Refresh module
+        var module = data[game_status.module_number];
+        $("#module_number").text(module.meta.number);
+        $("#module_title").text(module.meta.title);
+        $("#intro").text(module.intro);
+
+        //Refresh question
+        var question = module.questions[game_status.question_number];
+        $("#question_number").text(game_status.question_number);
+        $("#question_instruction").text(question.instruction);
+        $("#question_character").text(question.character);
+
+        //Refresh field
+        $("#answer").val("");
+
+      }
+    </script>
+
+  </head>
+  <body>
+    <!-- Facebook Javascript SDK -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header col-md-6 col-sm-12 col-xs-12">
+          <h1>香港人學粵拼&nbsp;<small>由<a href="https://www.facebook.com/chaaak.lingvisten">擇言</a>提供</small></h1>
+        </div>
+        <!--
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="fb-page" data-href="https://www.facebook.com/www.words.hk" data-height="70" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/www.words.hk"><a href="https://www.facebook.com/www.words.hk">words.hk</a></blockquote></div></div>
+        </div>
+        -->
+      </div>
+    </nav>
+    <div class="row" style="padding-left:10px; padding-right: 10px;">
+      <div class="col col-md-4 col-sm-12 col-xs-12">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">第<span id="module_number">＿</span>關：<span id="module_title">＿＿＿＿＿</span></h3>
+          </div>
+          <div class="panel-body">
+            <span id="intro" class="lead">簡介</span>
+          </div>
+        </div>
+      </div>
+      <div id="text" class="container col-md-8 col-sm-12 col-xs-12">
+        <div id="question" class="well">
+          <p><span id="question_number" class="lead">__</span>.&nbsp;<span id="question_instruction" class="lead">More instructions</span></p>
+          <center><h1 id="question_character" class="character-xl">字</h1></center>
+        </div>
+        <div class="col col-lg-6 col-lg-offset-3 col-md-8">
+          <div class="input-group">
+            <input id="answer" type="text" autofocus="autofocus" class="form-control form-control-xl" placeholder="粵拼" onkeypress="if (event.keyCode == 13) check();">
+            <span class="input-group-btn">
+              <button class="btn btn-success btn-lg" type="button" onclick="check();">Go!</button>
+            </span>
+          </div><!-- /input-group -->
+          <p><strong style="color:#FF0000;"><span id="incorrect_answer"></span></strong></p>
+        </div><!-- /.col-lg-6 -->
+      </div>
+    </div>
+  </body>
+</html>
